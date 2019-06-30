@@ -22,7 +22,6 @@ The bot keeps track of the time left until the citadel resets, and keeps a list 
 'cl' : returns the list of who has capped this week </br>
 
 
-:python:
 
 ------------------------------
 
