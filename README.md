@@ -20,7 +20,8 @@ The bot keeps track of the time left until the citadel resets, and keeps a list 
 'capped' : Adds the person to the list of who has capped that week </br>
 'r' : returns the time left until the citadel resets </br>
 'cl' : returns the list of who has capped this week </br>
-
+'citupdatetimer' : returns current reset time </br>
+'citadelupdatetimer (number) (number) (number) : updates reset time
 
 
 ------------------------------
