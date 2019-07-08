@@ -11,6 +11,7 @@ let config = require('./configmysql.js');
 let connection = mysql.createConnection(config);
 
 
+
 var cappedlist = fs.readFileSync("cappedList.txt").toString().split("\n");
 for(i in cappedlist) {
     console.log(cappedlist[i]);
@@ -28,10 +29,17 @@ client.once('ready', () => {
     var rankedChannel = client.channels.find(channel => channel.id === '453854088606646274');
 
     var interval = setInterval(function() {
-        
-        var citDay = 2;
-        var citHours = 10;
-        var citMinutes = 32;    
+
+        var resetTime = fs.readFileSync("resetTime.txt").toString().split("\n");
+            for(i in resetTime) {
+                var citDay = resetTime[0];
+                var citHours = resetTime[1];
+                var citMinutes = resetTime[2];
+                console.log(citDay + "testing");
+        }
+        // var citDay = 2;
+        // var citHours = 10;
+        // var citMinutes = 32;    
     //console.log(resetMiliSeconds);
     //var resetMiliSeconds = '644400000';
     var hours = new Date().getHours();
@@ -157,7 +165,7 @@ client.on('message', message => {
                 username =  username + `${args[i]}` + ' ';
             }
             
-            message.channel.send(username);
+            //message.channel.send(username);
             var alreadycapped = false;
             cappedlist.indexOf(username) === -1 ? cappedlist.push(username) : (alreadycapped = true) ;
 
@@ -174,15 +182,39 @@ client.on('message', message => {
         }
         
     }
+
+    if(command === 'citupdatetimer'){
+        if(args.length == 3) {
+            var resetTime = fs.readFileSync('resetTime.txt').toString().split("\n");
+            timer = '';
+            for(i = 0; i < args.length; i++){
+                timer = timer + `${args[i]}` +  "\n";
+            }
+
+            fs.writeFile('resetTime.txt', timer , function (err) {
+                if (err) throw err;
+                console.log('worked!');
+            });
+        } else if (args.length == 0) {
+            var resetTime = fs.readFileSync('resetTime.txt').toString().split("\n");
+            message.channel.send(resetTime);
+        }
+    }
+
+
     //console.log(message.content);
     var testChannel = client.channels.find(channel => channel.id === '566283643664859137');
     var citadelChannel = client.channels.find(channel => channel.id === '414644210390663178');
     msgLowerCase = message.content.toLowerCase();
     if(message.content.toLocaleLowerCase() == "!r") {
         //message.channel.send("working")
-    var citDay = 2;
-    var citHours = 10;
-    var citMinutes = 35;
+        var resetTime = fs.readFileSync("resetTime.txt").toString().split("\n");
+        for(i in resetTime) {
+            var citDay = resetTime[0];
+            var citHours = resetTime[1];
+            var citMinutes = resetTime[2];
+            console.log(citDay + "testing");
+    }
    
     var hours = new Date().getHours();
     var minutes = new Date().getMinutes();
@@ -310,10 +342,6 @@ client.on('message', message => {
             
             connection.end();
     }
-
-
-    
-
 
          if(msgLowerCase.startsWith(`${prefix}manualreset`)){ //sends out list of people who capped and then resets the list
             var cappedlist = fs.readFileSync("cappedList.txt").toString().split("\n");
