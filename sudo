@@ -1,0 +1,1 @@
+deb https://download.mono-project.com/repo/ubuntu vs-xenial main tee /etc/apt/sources.list.d/mono-official-vs.list
