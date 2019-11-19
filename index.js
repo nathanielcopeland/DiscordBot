@@ -304,7 +304,7 @@ client.once('ready', () => {
         function listMajors(auth) {
             const sheets = google.sheets({version: 'v4', auth});
             sheets.spreadsheets.values.get({
-              spreadsheetId: '162y1KlrNIfqNsJr4Fwn3WeXM9U4IEFNTVlZrQ-SScfY',
+              spreadsheetId: '1a745dyJwFo4QsbELp4tdaoez9e37ET8l72Z77seQwV0',
               range: 'Currency!A3:D',
             }, 
             (err, res) => {
@@ -326,7 +326,7 @@ client.once('ready', () => {
                       added = true;
                       console.log(l);
                       sheets.spreadsheets.values.update({
-                          spreadsheetId: "162y1KlrNIfqNsJr4Fwn3WeXM9U4IEFNTVlZrQ-SScfY",
+                          spreadsheetId: "1a745dyJwFo4QsbELp4tdaoez9e37ET8l72Z77seQwV0",
                           range: "Currency!C" + l, //Saves the row at the old index from before
                           valueInputOption: "RAW",
                           resource: {
@@ -352,7 +352,7 @@ client.once('ready', () => {
               if(!added){
                 console.log("Failed to add: " + cappedlist[i].replace(/\s/g,''));
                 sheets.spreadsheets.values.append({
-                    spreadsheetId: "162y1KlrNIfqNsJr4Fwn3WeXM9U4IEFNTVlZrQ-SScfY",
+                    spreadsheetId: "1a745dyJwFo4QsbELp4tdaoez9e37ET8l72Z77seQwV0",
                     range: "Currency!A:D", //Saves the row at the old index from before
                     valueInputOption: "USER_ENTERED",
                     resource: {
@@ -435,7 +435,7 @@ client.on('message', message => {
             var resetTime = fs.readFileSync('resetTime.txt').toString().split("\n");
             timer = '';
             theday = ((theday + parseInt(args[0])) % 7);
-            thehour = ((thehour + parseInt(args[1])) % 24);
+            thehour = ((thehour + parseInt(args[1])) % 24) + 1;
             theminute = ((theminute + parseInt(args[2])) % 60) + 1;
             timer = timer + theday + "\n";
             timer = timer + thehour + "\n"
@@ -583,7 +583,7 @@ client.on('message', message => {
          }
 
          if(message.content.toLowerCase() == '!testc'){
-
+            console.log("testc");
             fs.readFile('credentials.json', (err, content) => {
                 if (err) return console.log('Error loading client secret file:', err);
                 // Authorize a client with credentials, then call the Google Sheets API.
@@ -592,16 +592,19 @@ client.on('message', message => {
 
             var cappedlist = fs.readFileSync("cappedList.txt").toString().split("\n");
                //console.log(cappedlist[i]);
+               console.log("testc");
         function listMajors(auth) {
             const sheets = google.sheets({version: 'v4', auth});
             sheets.spreadsheets.values.get({
-              spreadsheetId: '162y1KlrNIfqNsJr4Fwn3WeXM9U4IEFNTVlZrQ-SScfY',
+              spreadsheetId: '1a745dyJwFo4QsbELp4tdaoez9e37ET8l72Z77seQwV0',
               range: 'Currency!A3:D',
             }, 
             (err, res) => {
+                console.log("testc");
             for(i = 1; i < cappedlist.length; i++){ // runs through list comparing to spreadsheet
                 //console.log('Name: ' + cappedlist[i]);
                 var added = false;
+                
               if (err) return console.log('The API returned an error: ' + err);
               const rows = res.data.values;
               if (rows.length) {
@@ -617,7 +620,7 @@ client.on('message', message => {
                       added = true;
                       console.log(l);
                       sheets.spreadsheets.values.update({
-                          spreadsheetId: "162y1KlrNIfqNsJr4Fwn3WeXM9U4IEFNTVlZrQ-SScfY",
+                          spreadsheetId: "1a745dyJwFo4QsbELp4tdaoez9e37ET8l72Z77seQwV0",
                           range: "Currency!C" + l, //Saves the row at the old index from before
                           valueInputOption: "RAW",
                           resource: {
@@ -643,7 +646,7 @@ client.on('message', message => {
               if(!added){
                 console.log("Failed to add: " + cappedlist[i].replace(/\s/g,''));
                 sheets.spreadsheets.values.append({
-                    spreadsheetId: "162y1KlrNIfqNsJr4Fwn3WeXM9U4IEFNTVlZrQ-SScfY",
+                    spreadsheetId: "1a745dyJwFo4QsbELp4tdaoez9e37ET8l72Z77seQwV0",
                     range: "Currency!A:D", //Saves the row at the old index from before
                     valueInputOption: "USER_ENTERED",
                     resource: {
